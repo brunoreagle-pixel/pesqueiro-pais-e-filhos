@@ -1,0 +1,449 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#1d2a12">
+<title>Pesqueiro Pais e Filhos</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Alfa+Slab+One&family=Nunito+Sans:opsz,wght@6..12,400;6..12,600;6..12,800;6..12,900&display=swap" rel="stylesheet">
+<style>
+/* VOICE: caloroso, de família — o cliente está na mesa, com tempo, e quer "passear" pelo lugar
+   IDEA: um app de mesa: abre como um aplicativo, com abas embaixo, como o guia de um parque
+   PICTURE: fotos reais em tela cheia com efeito de câmera lenta (Ken Burns) e água animada
+   COLOUR and TYPE: verde-mata e laranja do logo; Alfa Slab One (letreiro do pôster) + Nunito Sans
+   LAYOUT: coluna de celular; no computador vira um "aparelho" centralizado sobre a foto do lago */
+:root{color-scheme:dark;--bg:#14200d;--bg2:#1d2a12;--card:#22311a;--line:#ffffff1c;--ink:#f2f5ea;--soft:#b9c4aa;--or:#f07c22;--or2:#ffa34d;--safe:env(safe-area-inset-bottom,0px)}
+*{box-sizing:border-box;min-width:0;-webkit-tap-highlight-color:transparent}
+html{scroll-behavior:smooth;scroll-padding-top:12px}
+body{margin:0;background:#0b1207;color:var(--ink);font:16px/1.55 "Nunito Sans",system-ui,sans-serif;overflow-x:clip}
+img{display:block;width:100%;height:100%;object-fit:cover}
+h1,h2,h3{font-family:"Alfa Slab One",Georgia,serif;font-weight:400;line-height:1.08;margin:0;text-wrap:balance}
+h2{font-size:clamp(28px,8vw,36px)}h3{font-size:20px}
+p{margin:.5em 0}
+button{font:inherit;color:inherit}
+.backdrop{position:fixed;inset:0;z-index:-1;background:url(lago-palmeiras.jpg) center/cover;filter:blur(24px) brightness(.45);transform:scale(1.1)}
+.app{max-width:520px;margin:0 auto;background:var(--bg);min-height:100svh;position:relative;box-shadow:0 0 80px #000a;padding-bottom:calc(84px + var(--safe))}
+.sec{padding:40px 18px 12px}
+.kick{color:var(--or2);font-weight:900;font-size:14px;margin-bottom:6px;display:block}
+.lead{color:var(--soft)}
+.note{font-size:13px;color:#d7c3a8;background:#f07c221f;border:1px dashed #f07c2266;border-radius:10px;padding:8px 12px;margin-top:12px}
+
+/* splash */
+.splash{position:fixed;inset:0;z-index:99;background:var(--bg2);display:grid;place-items:center;transition:opacity .6s,visibility .6s}
+.splash.out{opacity:0;visibility:hidden}
+.splash .lg{width:132px;height:132px;border-radius:50%;overflow:hidden;border:4px solid #fff;position:relative;animation:pop .9s cubic-bezier(.2,1.4,.4,1) both}
+.splash .ring{position:absolute;width:132px;height:132px;border-radius:50%;border:2px solid var(--or);animation:ring 1.6s ease-out infinite}
+.splash .ring:nth-child(2){animation-delay:.5s}
+.splash p{position:absolute;bottom:22%;font-family:"Alfa Slab One";font-size:20px;animation:up .8s .4s both}
+@keyframes pop{from{transform:scale(.3);opacity:0}}
+@keyframes ring{from{transform:scale(1);opacity:.9}to{transform:scale(2.4);opacity:0}}
+@keyframes up{from{transform:translateY(16px);opacity:0}}
+
+/* hero */
+.hero{position:relative;height:min(88svh,760px);overflow:hidden;color:#fff;isolation:isolate}
+.slides,.slides>*{position:absolute;inset:0}
+.slides img{opacity:0;transition:opacity 1.2s;transform:scale(1.12)}
+.slides img.on{opacity:1;animation:kb 7s linear both}
+@keyframes kb{from{transform:scale(1.02) translate(0,0)}to{transform:scale(1.16) translate(-2%,-2%)}}
+.slides video{object-fit:cover;width:100%;height:100%}
+.hero:after{content:"";position:absolute;inset:0;z-index:1;background:linear-gradient(180deg,#0b120780 0%,#0b120700 28%,#0b1207a8 62%,var(--bg) 100%)}
+.hero .in{position:absolute;inset:auto 0 0;z-index:2;padding:0 20px 58px}
+.hero .lg{width:78px;height:78px;border-radius:50%;overflow:hidden;border:3px solid #fff;margin-bottom:14px;box-shadow:0 8px 24px #0007}
+.hero h1{font-size:clamp(38px,11vw,54px);text-shadow:0 2px 18px #000a}
+.hero h1 small{display:block;font-size:.38em;color:var(--or2);margin-bottom:8px}
+.hero .in p{max-width:32ch;color:#eef2e6;font-size:17px}
+.dots{position:absolute;top:calc(14px + env(safe-area-inset-top,0px));left:16px;right:16px;z-index:3;display:flex;gap:5px}
+.dots i{flex:1;height:3px;border-radius:3px;background:#ffffff40;overflow:hidden}
+.dots i b{display:block;height:100%;width:0;background:#fff}
+.dots i.on b{animation:bar 6s linear forwards}.dots i.done b{width:100%}
+@keyframes bar{to{width:100%}}
+.welcome{display:inline-flex;align-items:center;gap:8px;margin-top:14px;background:#ffffff1f;backdrop-filter:blur(8px);border:1px solid #ffffff30;border-radius:999px;padding:8px 14px;font-weight:800;font-size:14px}
+.welcome i{width:8px;height:8px;border-radius:50%;background:#58d36b;box-shadow:0 0 0 0 #58d36b;animation:live 1.8s infinite}
+@keyframes live{70%{box-shadow:0 0 0 9px #58d36b00}}
+.wave{position:absolute;left:0;right:0;bottom:-1px;z-index:2;height:44px;width:100%}
+.wave path{animation:wv 6s ease-in-out infinite alternate}
+@keyframes wv{to{transform:translateX(-60px)}}
+
+/* quick tiles */
+.quick{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px;padding:0 18px;margin-top:-6px;position:relative;z-index:3}
+.quick a{display:grid;justify-items:center;gap:6px;text-decoration:none;background:var(--card);border:1px solid var(--line);border-radius:16px;padding:12px 4px;font-size:12.5px;font-weight:800;text-align:center;transition:transform .15s}
+.quick a:active{transform:scale(.94)}
+.quick svg{width:26px;height:26px;color:var(--or2)}
+
+/* dia */
+.day{display:grid;gap:0;margin-top:18px;position:relative}
+.day:before{content:"";position:absolute;left:21px;top:12px;bottom:12px;width:2px;background:linear-gradient(var(--or),#f07c2200)}
+.step{display:grid;grid-template-columns:44px minmax(0,1fr);gap:12px;padding:10px 0;cursor:pointer;border:0;background:none;text-align:left;width:100%}
+.step .d{width:44px;height:44px;border-radius:50%;background:var(--bg2);border:2px solid var(--or);display:grid;place-items:center;font-size:12px;font-weight:900;z-index:1;transition:background .3s}
+.step b{display:block;font-size:17px}
+.step span{color:var(--soft);font-size:14.5px;display:block}
+.step .more{max-height:0;overflow:hidden;transition:max-height .45s ease;border-radius:14px}
+.step .more img{height:150px;border-radius:14px;margin-top:10px}
+.step.open .more{max-height:180px}.step.open .d{background:var(--or);color:#1b1206}
+
+/* cardápio */
+.tabs{display:flex;gap:8px;overflow-x:auto;padding:16px 18px 4px;margin:0 -18px;scrollbar-width:none;position:sticky;top:0;z-index:5;background:linear-gradient(var(--bg) 78%,#14200d00)}
+.tabs button{flex:none;min-height:42px;padding:0 16px;border-radius:999px;border:1px solid var(--line);background:var(--card);font-weight:800;cursor:pointer;transition:background .2s,color .2s}
+.tabs button.on{background:var(--or);color:#1b1206;border-color:var(--or)}
+.buffet{margin-top:14px;border-radius:22px;overflow:hidden;position:relative;min-height:250px;display:grid;align-items:end;isolation:isolate}
+.buffet>img{position:absolute;inset:0;z-index:-1}
+.buffet:before{content:"";position:absolute;inset:0;z-index:-1;background:linear-gradient(180deg,#0000 10%,#0b1207f2 75%)}
+.buffet .t{padding:18px}
+.badge{display:inline-block;background:var(--or);color:#1b1206;font-weight:900;font-size:12.5px;padding:4px 10px;border-radius:999px;margin-bottom:8px}
+.items{display:grid;gap:10px;margin-top:12px}
+.item{display:grid;grid-template-columns:64px minmax(0,1fr) auto;gap:12px;align-items:center;background:var(--card);border:1px solid var(--line);border-radius:16px;padding:10px 14px 10px 10px;cursor:pointer;text-align:left;width:100%;transition:transform .15s,border-color .2s;animation:fin .45s both}
+.item:active{transform:scale(.97)}.item:hover{border-color:#f07c2280}
+.item .ph{width:64px;height:64px;border-radius:12px;overflow:hidden;background:var(--bg2);display:grid;place-items:center}
+.item .ph svg{width:30px;height:30px;color:var(--or2)}
+.item b{display:block;line-height:1.25}.item small{color:var(--soft);display:block;font-size:13.5px;line-height:1.35;margin-top:2px}
+.price{font-weight:900;color:var(--or2);white-space:nowrap;font-size:16px;text-align:right}
+.price em{display:block;font-style:normal;font-size:11.5px;color:var(--soft);font-weight:700}
+@keyframes fin{from{opacity:0;transform:translateY(12px)}}
+
+/* pesca */
+.pesca{position:relative;overflow:hidden}
+.bub{position:absolute;inset:0;pointer-events:none;z-index:0}
+.bub i{position:absolute;bottom:-20px;width:10px;height:10px;border-radius:50%;border:1.5px solid #ffffff38;animation:rise linear infinite}
+@keyframes rise{to{transform:translateY(-1400px) translateX(20px);opacity:0}}
+.pesca>*{position:relative;z-index:1}
+.mods{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;margin-top:16px}
+.flip{perspective:900px;height:230px;cursor:pointer;border:0;background:none;padding:0;text-align:left}
+.flip .c{display:block;position:relative;width:100%;height:100%;transition:transform .7s;transform-style:preserve-3d}
+.flip.on .c{transform:rotateY(180deg)}
+.flip .f,.flip .b{position:absolute;inset:0;border-radius:18px;overflow:hidden;backface-visibility:hidden;-webkit-backface-visibility:hidden}
+.flip .f:after{content:"";position:absolute;inset:0;background:linear-gradient(#0000 35%,#0b1207ee)}
+.flip .f div{position:absolute;left:12px;right:12px;bottom:12px;z-index:1}
+.flip .f small{font-size:12px;color:#fff;opacity:.85;display:flex;gap:4px;align-items:center}
+.flip .b{transform:rotateY(180deg);background:var(--or);color:#1b1206;padding:16px;display:flex;flex-direction:column;gap:6px;font-size:14.5px;line-height:1.4}
+.flip .b b{font-family:"Alfa Slab One";font-weight:400;font-size:17px}
+.flip .b .p{margin-top:auto;font-weight:900;font-size:18px}
+.species{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px}
+.species button{display:inline-flex;align-items:center;gap:6px;border:1px solid var(--line);background:var(--card);border-radius:999px;padding:8px 13px;font-weight:700;font-size:14.5px;cursor:pointer;min-height:40px;animation:fin .5s both}
+.species svg{width:22px;height:14px;color:var(--or2);transition:transform .3s}
+.species button:hover svg,.species button.on svg{animation:wig .5s ease-in-out 2}
+.species button.on{border-color:var(--or);background:#f07c2226}
+@keyframes wig{50%{transform:translateX(4px) rotate(-8deg)}}
+.poster{margin-top:16px;border-radius:18px;overflow:hidden;cursor:zoom-in}
+
+/* galeria */
+.gal{columns:2;column-gap:8px;margin-top:14px}
+.gal button{display:block;width:100%;margin:0 0 8px;border:0;padding:0;border-radius:14px;overflow:hidden;cursor:zoom-in;break-inside:avoid;position:relative;background:var(--card)}
+.gal img{height:auto;transition:transform .5s}.gal button:hover img{transform:scale(1.05)}
+.gal span{position:absolute;left:8px;bottom:8px;font-size:12px;font-weight:800;background:#0b1207c8;padding:3px 9px;border-radius:999px}
+.video{margin-top:14px;border-radius:18px;overflow:hidden;position:relative;aspect-ratio:9/12;background:#000}
+.video video{width:100%;height:100%;object-fit:cover}
+
+/* info */
+.info{display:grid;gap:10px;margin-top:14px}
+.box{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:16px}
+.box h3{font-size:17px;margin-bottom:6px}
+.week{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:4px;margin-top:10px}
+.week span{text-align:center;padding:8px 0;border-radius:10px;font-size:12.5px;font-weight:800;background:var(--bg2);color:#ffffff55}
+.week span.op{background:#3c5a24;color:#fff}.week span.td{outline:2px solid var(--or);outline-offset:1px}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:46px;padding:0 18px;border-radius:999px;font-weight:900;text-decoration:none;border:0;cursor:pointer;background:var(--or);color:#1b1206;margin-top:10px}
+.btn.gh{background:#ffffff14;color:var(--ink);border:1px solid var(--line)}
+.btn svg{width:20px;height:20px}
+.ig{background:linear-gradient(135deg,#f07c22,#c0392b 55%,#7b2d6b);color:#fff;border:0}
+.ig h3{font-size:20px}.ig p{color:#fff}
+footer{text-align:center;color:var(--soft);font-size:13.5px;padding:28px 18px 10px}
+
+/* bottom nav */
+.bar{position:fixed;left:50%;transform:translateX(-50%);bottom:0;z-index:40;width:min(520px,100%);display:grid;grid-template-columns:repeat(5,minmax(0,1fr));background:#101a0bf0;backdrop-filter:blur(14px);border-top:1px solid var(--line);padding:6px 6px calc(6px + var(--safe))}
+.bar a{display:grid;justify-items:center;gap:2px;text-decoration:none;font-size:11.5px;font-weight:800;color:var(--soft);padding:6px 0;border-radius:12px;min-height:52px;transition:color .2s}
+.bar svg{width:24px;height:24px;transition:transform .3s}
+.bar a.on{color:var(--or2)}.bar a.on svg{transform:translateY(-2px) scale(1.12)}
+
+/* sheet & lightbox */
+.sheet{position:fixed;inset:0;z-index:60;display:grid;align-items:end;justify-items:center;background:#000a;opacity:0;visibility:hidden;transition:opacity .3s,visibility .3s}
+.sheet.on{opacity:1;visibility:visible}
+.sheet .pn{width:min(520px,100%);background:var(--bg2);border-radius:24px 24px 0 0;overflow:hidden;transform:translateY(100%);transition:transform .4s cubic-bezier(.2,.9,.3,1);padding-bottom:var(--safe)}
+.sheet.on .pn{transform:none}
+.sheet .pn>img{height:230px}
+.sheet .tx{padding:18px 20px 24px}
+.sheet .x{position:absolute;margin:12px;width:44px;height:44px;border-radius:50%;border:0;background:#000a;font-size:22px;cursor:pointer}
+.lb{position:fixed;inset:0;z-index:70;background:#000f;display:none}
+.lb.on{display:block}
+.lb .tr{display:flex;height:100%;overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:none}
+.lb figure{flex:0 0 100%;scroll-snap-align:center;margin:0;display:grid;place-items:center;padding:56px 0}
+.lb img{object-fit:contain;max-height:100%}
+.lb .x,.lb .nv{position:absolute;z-index:2;width:48px;height:48px;border-radius:50%;border:0;background:#ffffff26;font-size:24px;cursor:pointer}
+.lb .x{top:12px;right:12px}.lb .pv{left:10px;top:50%}.lb .nx{right:10px;top:50%}
+.lb .ct{position:absolute;top:24px;left:0;right:0;text-align:center;font-weight:800;font-size:14px;pointer-events:none}
+
+body.mesa .so-bio,body:not(.mesa) .so-mesa{display:none!important}
+.fab{position:fixed;z-index:41;right:max(14px,calc(50% - 246px));bottom:calc(76px + var(--safe));width:58px;height:58px;border-radius:50%;background:#1fa855;color:#fff;display:grid;place-items:center;box-shadow:0 10px 26px #0007;animation:pop .6s 1.6s both}
+.fab svg{width:30px;height:30px}
+.btn.wa{background:#1fa855;color:#fff}
+.rv{opacity:0;transform:translateY(24px);transition:opacity .7s,transform .7s}.rv.in{opacity:1;transform:none}
+:focus-visible{outline:3px solid var(--or2);outline-offset:2px}
+
+/* ===== tablet ===== */
+@media(min-width:600px){.app{max-width:760px}.gal{columns:3}.flip{height:300px}.info{grid-template-columns:repeat(2,minmax(0,1fr))}.items{grid-template-columns:repeat(2,minmax(0,1fr))}.fab{right:max(14px,calc(50% - 366px))}.bar{width:min(760px,100%)}}
+/* ===== desktop ===== */
+@media(min-width:1000px){
+ html{scroll-padding-top:84px}
+ .backdrop{display:none}
+ .app{max-width:none;box-shadow:none;padding-bottom:0}
+ .sec{max-width:1200px;margin:0 auto;padding:88px 40px 24px}
+ h2{font-size:48px}.lead{font-size:18px;max-width:60ch}
+ .bar{top:0;bottom:auto;left:0;transform:none;width:100%;display:flex;justify-content:center;gap:6px;padding:12px 24px;border-top:0;border-bottom:1px solid var(--line);background:#101a0bd9}
+ .bar a{display:flex;align-items:center;gap:8px;min-height:44px;padding:0 18px;font-size:15px;border-radius:999px}
+ .bar a.on{background:#f07c2224}.bar svg{width:20px;height:20px}.bar a.on svg{transform:none}
+ .hero{height:min(94vh,900px)}
+ .hero .in{max-width:1200px;left:0;right:0;margin:0 auto;padding:0 40px 110px}
+ .hero h1{font-size:84px;max-width:12ch}.hero .in p{font-size:21px;max-width:40ch}.hero .lg{width:104px;height:104px}
+ .dots{top:84px;max-width:1120px;margin:0 auto}
+ .wave{height:70px}
+ .quick{display:none}
+ .day{grid-template-columns:repeat(4,minmax(0,1fr));gap:18px;margin-top:30px}
+ .day:before{left:22px;right:22px;top:21px;bottom:auto;width:auto;height:2px;background:linear-gradient(90deg,var(--or),#f07c2222)}
+ .step{grid-template-columns:minmax(0,1fr);gap:14px;align-content:start}
+ .step .more{max-height:none}.step .more img{height:200px}.step .d{background:var(--or);color:#1b1206}
+ .step:hover .more img{transform:scale(1.03)}.step .more img{transition:transform .4s}
+ .tabs{top:68px;margin:0;padding:18px 0 8px}
+ #menu{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.1fr);gap:20px;align-items:start;margin-top:10px}
+ #menu:not(:has(.buffet)){grid-template-columns:minmax(0,1fr)}
+ .buffet{margin-top:12px;min-height:440px;position:sticky;top:150px}.buffet h3{font-size:32px!important}
+ .items{grid-template-columns:minmax(0,1fr)}
+ #menu:not(:has(.buffet)) .items{grid-template-columns:repeat(2,minmax(0,1fr))}
+ .item{grid-template-columns:84px minmax(0,1fr) auto;padding:12px 18px 12px 12px}.item .ph{width:84px;height:84px}.item b{font-size:18px}.price{font-size:19px}
+ .mods{gap:20px}.flip{height:400px}.flip .f div{left:22px;bottom:22px}.flip h3{font-size:26px!important}.flip .b{padding:28px;font-size:17px}.flip .b b{font-size:26px}.flip .b .p{font-size:24px}
+ .spgrid{display:grid;grid-template-columns:minmax(0,1.3fr) minmax(0,1fr);gap:40px;align-items:start}
+ .spgrid .poster{margin-top:28px;max-width:440px;justify-self:end}
+ .gal{columns:4;column-gap:12px}.gal button{margin-bottom:12px}
+ .video{aspect-ratio:16/9;max-width:900px}
+ .info{grid-template-columns:repeat(4,minmax(0,1fr));gap:16px}.info .ig{grid-column:1/-1;display:flex;align-items:center;justify-content:space-between;gap:20px;padding:28px 32px}.info .ig .btn{margin:0}
+ body.mesa .info{grid-template-columns:repeat(3,minmax(0,1fr))}
+ footer{padding:40px}
+ .fab{right:28px;bottom:28px;width:64px;height:64px}
+ .sheet{align-items:center}.sheet .pn{width:min(560px,92vw);border-radius:24px;transform:translateY(30px) scale(.96);opacity:0;transition:transform .35s,opacity .35s}.sheet.on .pn{opacity:1}.sheet .pn>img{height:300px}
+ .lb figure{padding:70px 90px}
+}
+@media(prefers-reduced-motion:reduce){*,*:before,*:after{animation:none!important;transition:none!important}.rv{opacity:1;transform:none}.slides img.on{transform:scale(1.05)}}
+</style>
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+ <symbol id="fish" viewBox="0 0 34 20"><path fill="currentColor" d="M2 10c5-7 14-9 22-5l7-4-2 9 2 9-7-4C16 19 7 17 2 10Zm19-2.5a1.5 1.5 0 1 0 0 .1Z"/></symbol>
+ <symbol id="plate" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="13" r="7"/><circle cx="12" cy="13" r="3.5"/><path d="M3 3v6M5 3v6M3 6h2M4 9v12M20 3c-1.5 2-2 4-2 6h2v12"/></g></symbol>
+ <symbol id="rod" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M3 21 19 3M19 3c2 4 1 9-2 12"/><circle cx="17" cy="17" r="2"/><path d="M5 19l2 2"/></g></symbol>
+ <symbol id="pic" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"><rect x="3" y="4" width="18" height="16" rx="3"/><circle cx="9" cy="10" r="2"/><path d="m21 16-5-5-9 9"/></g></symbol>
+ <symbol id="pin" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2"><path d="M12 21s-7-6.2-7-11.5a7 7 0 0 1 14 0C19 14.8 12 21 12 21Z"/><circle cx="12" cy="9.5" r="2.5"/></g></symbol>
+ <symbol id="home" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" d="M3 11 12 4l9 7v9a1 1 0 0 1-1 1h-5v-6H9v6H4a1 1 0 0 1-1-1Z"/></symbol>
+ <symbol id="leaf" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" d="M5 19C5 9 11 4 20 4c0 9-5 15-15 15Zm0 0 8-8"/></symbol>
+ <symbol id="drink" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" d="M6 7h10v12a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2Zm10 3h2a2 2 0 0 1 2 2v2a2 2 0 0 1-2 2h-2M7 7a3 3 0 0 1 4-3 3 3 0 0 1 5 3"/></symbol>
+ <symbol id="wa" viewBox="0 0 24 24"><path fill="currentColor" d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2Zm0 18.2a8.2 8.2 0 0 1-4.2-1.1l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2Zm4.5-6.1c-.2-.1-1.5-.7-1.7-.8-.2-.1-.4-.1-.6.1l-.8 1c-.1.2-.3.2-.5.1a6.7 6.7 0 0 1-3.3-2.9c-.2-.4.2-.4.7-1.2.1-.2 0-.3 0-.4l-.8-1.8c-.2-.5-.4-.4-.6-.4h-.5a1 1 0 0 0-.7.3 3 3 0 0 0-.9 2.2 5.2 5.2 0 0 0 1.1 2.7 11.8 11.8 0 0 0 4.5 4c1.7.7 2.3.8 3.2.6a2.7 2.7 0 0 0 1.8-1.3 2.2 2.2 0 0 0 .1-1.3c0-.1-.2-.2-.5-.3Z"/></symbol>
+ <symbol id="ig" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r=".6" fill="currentColor"/></g></symbol>
+</svg>
+
+<div class="splash" id="splash"><div class="ring"></div><div class="ring"></div><div class="lg"><img src="logo.jpg" alt=""></div><p>Bem-vindo!</p></div>
+<div class="backdrop" aria-hidden="true"></div>
+
+<div class="app">
+<header class="hero" id="inicio">
+ <div class="slides" id="slides"></div>
+ <div class="dots" id="dots"></div>
+ <div class="in">
+  <div class="lg"><img src="logo.jpg" alt="Logo Pesqueiro Pais e Filhos"></div>
+  <h1><small>Pirabeiraba · Joinville/SC</small>Pesqueiro Pais e Filhos</h1>
+  <p class="so-mesa">Que bom ter você aqui! Explore o cardápio, conheça os lagos e aproveite o dia.</p><p class="so-bio">Buffet no fogão a lenha, lagos cheios de peixe e natureza pra família toda. Vem passar o dia com a gente!</p>
+  <span class="welcome"><i></i><span id="hoje">Aberto hoje até 18h</span></span>
+ </div>
+ <svg class="wave" viewBox="0 0 600 44" preserveAspectRatio="none" aria-hidden="true"><path fill="#14200d" d="M0 22c50-14 100-14 150 0s100 14 150 0 100-14 150 0 100 14 150 0 100-14 150 0v22H0Z"/></svg>
+</header>
+
+<nav class="quick" aria-label="Atalhos">
+ <a href="#cardapio"><svg><use href="#plate"/></svg>Cardápio</a>
+ <a href="#pesca"><svg><use href="#rod"/></svg>Pesca</a>
+ <a href="#fotos"><svg><use href="#pic"/></svg>Fotos</a>
+ <a href="#info"><svg><use href="#pin"/></svg>Info</a>
+</nav>
+
+<section class="sec rv">
+ <span class="kick">Seu dia no pesqueiro</span>
+ <h2>Venha pro almoço, fique o dia inteiro</h2>
+ <div class="day" id="day"></div>
+</section>
+
+<section class="sec" id="cardapio">
+ <span class="kick">Cardápio</span>
+ <h2 class="rv">Feito no fogão a lenha</h2>
+ <div class="tabs" role="tablist" id="tabs"></div>
+ <div id="menu"></div>
+ <p class="note" id="exnote">Valores de exemplo — trocar pelos valores reais antes de imprimir o QR code.</p>
+</section>
+
+<section class="sec pesca" id="pesca">
+ <div class="bub" id="bub" aria-hidden="true"></div>
+ <span class="kick">Pesca</span>
+ <h2 class="rv">Aqui a ação é bruta</h2>
+ <p class="lead rv">Toque nos cartões para ver como funciona cada modalidade.</p>
+ <div class="mods" id="mods"></div>
+ <div class="spgrid"><div>
+ <h3 style="margin-top:28px" class="rv">Quem mora nos nossos lagos</h3>
+ <div class="species" id="species"></div>
+ <p class="lead" id="spinfo" style="min-height:2.6em;font-size:14.5px">Toque em um peixe.</p></div>
+ <button class="poster rv" data-lb="especies" style="border:0;padding:0;width:100%"><img src="especies.jpg" alt="Pôster com as espécies do pesqueiro" loading="lazy" style="height:auto"></button></div>
+</section>
+
+<section class="sec" id="fotos">
+ <span class="kick">Fotos e vídeo</span>
+ <h2 class="rv">Conheça o espaço</h2>
+ <p class="lead rv">Natureza aos pés da serra: lagos, mata e lugar pra família toda. Toque numa foto para ampliar.</p>
+ <div class="video rv" id="videobox" hidden></div>
+ <div class="gal" id="gal"></div>
+</section>
+
+<section class="sec" id="info">
+ <span class="kick">Informações</span>
+ <h2 class="rv so-mesa">Volte sempre!</h2><h2 class="rv so-bio">Como chegar</h2>
+ <div class="info">
+  <div class="box rv"><h3>Horário</h3><p style="margin:0">Quinta a segunda, das 8h às 18h</p><div class="week" id="week"></div></div>
+  <div class="box rv"><h3>Endereço</h3><p style="margin:0">Estrada do Pico, nº 3034 (poste 48)<br>Pirabeiraba · Joinville/SC</p>
+   <a class="btn gh" href="https://maps.app.goo.gl/3M52Fd4Ceh917xqc7" target="_blank" rel="noopener"><svg><use href="#pin"/></svg>Ver no mapa</a></div>
+  <div class="box rv"><h3>Eventos e confraternizações</h3><p style="margin:0" class="lead">Aniversários, encontros de família, empresas e grupos de pesca.<span class="so-mesa"> Peça informações no caixa.</span></p><a class="btn wa so-bio" data-wa="Olá! Vi o catálogo e quero um orçamento para um evento no pesqueiro." href="#"><svg><use href="#wa"/></svg>Pedir orçamento</a></div>
+  <div class="box so-bio rv"><h3>Dúvidas e reservas</h3><p style="margin:0" class="lead">WhatsApp (47) 99128-9400</p><a class="btn wa" data-wa="Olá! Vi o catálogo do pesqueiro e gostaria de mais informações." href="#"><svg><use href="#wa"/></svg>Chamar no WhatsApp</a></div>
+  <div class="box ig rv"><h3>Postou? Marca a gente!</h3><p style="margin:4px 0 0">Mostre seu peixe e seu prato no Instagram.</p>
+   <button class="btn" id="copyig" style="background:#fff;color:#7b2d6b"><svg><use href="#ig"/></svg><span>@pesqueiro_pais_e_filhos</span></button></div>
+ </div>
+ <footer>Pesqueiro Pais e Filhos · Pesca esportiva · Pesque e pague · Restaurante</footer>
+</section>
+</div>
+
+<a class="fab so-bio" data-wa="Olá! Vi o catálogo do pesqueiro e gostaria de mais informações." href="#" aria-label="Falar no WhatsApp"><svg><use href="#wa"/></svg></a>
+<nav class="bar" aria-label="Navegação" id="bar">
+ <a href="#inicio" class="on"><svg><use href="#home"/></svg>Início</a>
+ <a href="#cardapio"><svg><use href="#plate"/></svg>Cardápio</a>
+ <a href="#pesca"><svg><use href="#rod"/></svg>Pesca</a>
+ <a href="#fotos"><svg><use href="#pic"/></svg>Fotos</a>
+ <a href="#info"><svg><use href="#pin"/></svg>Info</a>
+</nav>
+
+<div class="sheet" id="sheet" aria-hidden="true"><div class="pn" role="dialog" aria-modal="true"><button class="x" id="sx" aria-label="Fechar">×</button><img id="simg" alt=""><div class="tx"><span class="badge" id="sbadge"></span><h3 id="st"></h3><p class="lead" id="sd"></p><div class="price" id="sp" style="text-align:left;font-size:22px"></div></div></div></div>
+<div class="lb" id="lb" aria-hidden="true"><div class="ct" id="lbc"></div><button class="x" id="lbx" aria-label="Fechar">×</button><button class="nv pv" id="lbp" aria-label="Anterior">‹</button><button class="nv nx" id="lbn" aria-label="Próxima">›</button><div class="tr" id="lbt"></div></div>
+
+<script>
+{
+/* ====== EDITE AQUI: valores, itens e vídeo ====== */
+const CONFIG={
+ exemplo:true, // mude para false quando os valores forem os reais (some o aviso)
+ video:'',     // ex.: 'video/apresentacao.mp4' — se vazio, a abertura usa as fotos
+ cardapio:{
+  'Buffet':{destaque:{img:'buffet-fogao',badge:'Sábados e domingos',t:'Buffet livre',d:'Pratos quentes no fogão a lenha, costela, peixes fresquinhos, saladas e acompanhamentos. Coma à vontade.'},
+   itens:[
+    {t:'Buffet livre — adulto',d:'Sábados e domingos',p:'69,90',img:'buffet-pratos'},
+    {t:'Buffet livre — criança',d:'De 5 a 10 anos',p:'34,90',img:'saladas'},
+    {t:'Crianças até 4 anos',d:'Acompanhadas de um adulto',p:'Cortesia',img:'criancas'}]},
+  'Porções':{itens:[
+    {t:'Tilápia frita',d:'Porção para 2 a 3 pessoas',p:'59,90',icon:'fish'},
+    {t:'Isca de peixe',d:'Com molho da casa',p:'54,90',icon:'fish'},
+    {t:'Batata frita',d:'Porção grande',p:'32,90',icon:'plate'},
+    {t:'Mandioca frita',d:'Porção grande',p:'29,90',icon:'plate'}]},
+  'Bebidas':{itens:[
+    {t:'Chopp',d:'Bem gelado, 300 ml',p:'12,90',icon:'drink'},
+    {t:'Refrigerante lata',d:'350 ml',p:'7,00',icon:'drink'},
+    {t:'Suco natural',d:'Copo 500 ml',p:'10,00',icon:'drink'},
+    {t:'Água mineral',d:'Com ou sem gás',p:'5,00',icon:'drink'}]}
+ },
+ pesca:[
+  {img:'arremesso',t:'Pesca esportiva',tag:'Pesque e solte',d:'Tambaquis, tambacus gigantes e muitos peixes de couro. O peixe volta pro lago.',p:'Diária: R$ 60,00'},
+  {img:'criancas',t:'Pesque e pague',tag:'Leve pra casa',d:'Tilápias selecionadas. Leve o peixe ou peça para preparar na cozinha.',p:'Tilápia: R$ 19,90/kg'}]
+};
+/* ================================================ */
+
+const $=id=>document.getElementById(id);
+/* #mesa = link do QR code nas mesas (sem WhatsApp). Sem #mesa = link da bio do Instagram. */
+const MESA=location.hash==='#mesa';document.body.classList.toggle('mesa',MESA);
+const PHONE='5547991289400';
+document.querySelectorAll('[data-wa]').forEach(a=>{a.href='https://wa.me/'+PHONE+'?text='+encodeURIComponent(a.dataset.wa);a.target='_blank';a.rel='noopener'});
+const esc=s=>String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const brl=p=>/\d/.test(p)?'R$ '+p:p;
+const reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
+if(!CONFIG.exemplo)$('exnote').remove();
+
+/* splash */
+setTimeout(()=>$('splash').classList.add('out'),reduce?50:1500);
+
+/* hero */
+const HERO=['lago-palmeiras','buffet-fogao','pesca-mulher','lago-casa','arremesso'];
+const sl=$('slides'),dots=$('dots');
+if(CONFIG.video){sl.innerHTML='<video src="'+esc(CONFIG.video)+'" autoplay muted loop playsinline poster="lago-palmeiras.jpg"></video>';}
+else{
+ sl.innerHTML=HERO.map(h=>'<img src="'+h+'.jpg" alt="">').join('');
+ dots.innerHTML=HERO.map(()=>'<i><b></b></i>').join('');
+ const im=[...sl.children],ds=[...dots.children];let k=-1,tm;
+ const go=n=>{k=(n+im.length)%im.length;im.forEach((x,i)=>x.classList.toggle('on',i===k));ds.forEach((d,i)=>{d.classList.remove('on','done');if(i<k)d.classList.add('done')});void ds[k].offsetWidth;ds[k].classList.add('on');clearTimeout(tm);tm=setTimeout(()=>go(k+1),6000)};
+ go(0);$('inicio').addEventListener('click',e=>{if(!e.target.closest('a'))go(k+1)});
+}
+
+/* aberto hoje */
+const now=new Date(),dow=now.getDay(),open=[1,4,5,6,0].includes(dow),h=now.getHours();
+$('hoje').textContent=open?(h<8?'Abrimos hoje às 8h':h<18?'Aberto agora · até 18h':'Encerrado por hoje'):'Hoje fechado · abrimos de quinta a segunda';
+$('week').innerHTML=[['Seg',1],['Ter',2],['Qua',3],['Qui',4],['Sex',5],['Sáb',6],['Dom',0]].map(([n,d])=>'<span class="'+([1,4,5,6,0].includes(d)?'op ':'')+(d===dow?'td':'')+'">'+n+'</span>').join('');
+
+/* dia */
+const DAY=[['Manhã','Lago e vara na mão','O pesqueiro abre às 8h. Escolha seu lugar na beira d\'água.','arremesso'],['Almoço','Buffet no fogão a lenha','Costela, peixes e pratos variados — com chopp gelado.','buffet-fogao'],['Tarde','Família e natureza','Crianças brincando, conversa boa e mais uma pescaria.','criancas'],['18h','Até a próxima!','Leve sua tilápia do pesque e pague pra casa.','lago-casa']];
+$('day').innerHTML=DAY.map(([a,b,c,img],i)=>'<button class="step'+(i===1?' open':'')+'"><span class="d">'+(i+1)+'</span><span><b>'+a+' · '+b+'</b><span>'+c+'</span><span class="more"><img src="'+img+'.jpg" alt="" loading="lazy"></span></span></button>').join('');
+$('day').addEventListener('click',e=>{const s=e.target.closest('.step');if(!s)return;[...$('day').children].forEach(x=>x.classList.toggle('open',x===s&&!s.classList.contains('open')))});
+
+/* cardápio */
+const cats=Object.keys(CONFIG.cardapio);let ALL=[];
+$('tabs').innerHTML=cats.map((c,i)=>'<button role="tab" class="'+(i?'':'on')+'" data-c="'+esc(c)+'">'+esc(c)+'</button>').join('');
+const ph=it=>it.img?'<img src="'+esc(it.img)+'.jpg" alt="" loading="lazy">':'<svg><use href="#'+esc(it.icon||'plate')+'"/></svg>';
+const showCat=c=>{
+ const cat=CONFIG.cardapio[c];ALL=cat.itens;let h='';
+ if(cat.destaque){const d=cat.destaque;h+='<div class="buffet"><img src="'+esc(d.img)+'.jpg" alt=""><div class="t"><span class="badge">'+esc(d.badge)+'</span><h3 style="font-size:24px">'+esc(d.t)+'</h3><p style="margin-bottom:0;color:#e3e9d9">'+esc(d.d)+'</p></div></div>';}
+ h+='<div class="items">'+cat.itens.map((it,i)=>'<button class="item" data-i="'+i+'" style="animation-delay:'+(i*70)+'ms"><span class="ph">'+ph(it)+'</span><span><b>'+esc(it.t)+'</b><small>'+esc(it.d)+'</small></span><span class="price">'+esc(brl(it.p))+'</span></button>').join('')+'</div>';
+ $('menu').innerHTML=h;
+};
+$('tabs').addEventListener('click',e=>{const b=e.target.closest('button');if(!b)return;[...$('tabs').children].forEach(x=>x.classList.toggle('on',x===b));showCat(b.dataset.c);b.scrollIntoView({inline:'center',block:'nearest',behavior:'smooth'})});
+showCat(cats[0]);
+
+/* sheet */
+const sheet=$('sheet'),closeS=()=>{sheet.classList.remove('on');sheet.setAttribute('aria-hidden','true')};
+$('menu').addEventListener('click',e=>{const b=e.target.closest('.item');if(!b)return;const it=ALL[b.dataset.i];
+ $('simg').src=''+(it.img||'buffet-fogao')+'.jpg';$('st').textContent=it.t;$('sd').textContent=it.d;$('sp').textContent=brl(it.p);$('sbadge').textContent=$('tabs').querySelector('.on').textContent;
+ sheet.classList.add('on');sheet.setAttribute('aria-hidden','false');$('sx').focus()});
+sheet.addEventListener('click',e=>{if(e.target===sheet)closeS()});$('sx').addEventListener('click',closeS);
+
+/* pesca */
+$('mods').innerHTML=CONFIG.pesca.map(m=>'<button class="flip rv"><span class="c"><span class="f"><img src="'+esc(m.img)+'.jpg" alt="" loading="lazy"><div><span class="badge">'+esc(m.tag)+'</span><h3 style="font-size:18px">'+esc(m.t)+'</h3><small>Toque para virar ↻</small></div></span><span class="b"><b>'+esc(m.t)+'</b><span>'+esc(m.d)+'</span><span class="p">'+esc(m.p)+'</span></span></span></button>').join('');
+$('mods').addEventListener('click',e=>{const f=e.target.closest('.flip');if(f)f.classList.toggle('on')});
+const SP=[['Tambaqui','Um dos gigantes da pesca esportiva — briga forte!'],['Tambacu','Híbrido robusto, famoso pelos exemplares gigantes.'],['Tilápia','A estrela do pesque e pague. Ótima pra levar pra casa.'],['Pintado','Peixe de couro de pintas escuras, muito disputado.'],['Cachara','Peixe de couro listrado, parente do pintado.'],['Jundiá onça','Peixe de couro de manchas, ativo no fim do dia.'],['Catfish','Peixe de couro resistente que puxa linha.'],['Pirarara','A de cauda vermelha — um troféu de peso.'],['Dourado','O "rei do rio", conhecido pelos saltos.'],['Tucunaré azul','Predador agressivo, adora iscas artificiais.'],['Black bass','Predador esportivo, ataca iscas de superfície.'],['Traíra','Já teve até torneio de traíras aqui no pesqueiro!'],['Pacu','Forte e brigador, pega bem com massa e ração.'],['Matrinxã','Rápido e saltador, exige reflexo.'],['Piracanjuba','Peixe prateado e ágil de águas claras.'],['Carpa capim','Grande e desconfiada — paciência é a chave.'],['Carpa húngara','Clássica dos pesqueiros, briga longa.'],['Carpa cabeçuda','Carpa de cabeça grande, pode passar dos 20 kg.']];
+$('species').innerHTML=SP.map(([n],i)=>'<button data-i="'+i+'" style="animation-delay:'+(i*30)+'ms"><svg><use href="#fish"/></svg>'+n+'</button>').join('');
+$('species').addEventListener('click',e=>{const b=e.target.closest('button');if(!b)return;[...$('species').children].forEach(x=>x.classList.toggle('on',x===b));const s=SP[b.dataset.i];$('spinfo').innerHTML='<b style="color:#fff">'+s[0]+':</b> '+s[1]});
+$('bub').innerHTML=Array.from({length:14},(_,i)=>'<i style="left:'+(i*7+3)%100+'%;width:'+(6+i%4*4)+'px;height:'+(6+i%4*4)+'px;animation-duration:'+(9+i%5*3)+'s;animation-delay:-'+(i*1.3)+'s"></i>').join('');
+
+/* fotos */
+const GAL=[['lago-casa','O lago'],['buffet-fogao','Fogão a lenha'],['pesca-mulher','Tambaqui'],['lago-palmeiras','Palmeiras'],['buffet-pratos','Buffet'],['arremesso','Arremesso'],['criancas','Pesca em família'],['saladas','Saladas'],['logo','Nossa marca']];
+$('gal').innerHTML=GAL.map(([f,c],i)=>'<button class="rv" data-g="'+i+'"><img src="'+f+'.jpg" alt="'+c+'" loading="lazy"><span>'+c+'</span></button>').join('');
+if(CONFIG.video){$('videobox').hidden=false;$('videobox').innerHTML='<video src="'+esc(CONFIG.video)+'" controls playsinline preload="metadata" poster="lago-casa.jpg"></video>';}
+
+/* lightbox */
+const LB=[...GAL,['especies','Espécies do pesqueiro']],lb=$('lb'),tr=$('lbt');
+tr.innerHTML=LB.map(([f,c])=>'<figure><img src="'+f+'.jpg" alt="'+c+'" loading="lazy"></figure>').join('');
+const cur=()=>Math.round(tr.scrollLeft/tr.clientWidth);
+const lbTo=(i,sm)=>{i=Math.max(0,Math.min(LB.length-1,i));tr.scrollTo({left:i*tr.clientWidth,behavior:sm?'smooth':'auto'});$('lbc').textContent=LB[i][1]+' · '+(i+1)+'/'+LB.length};
+const openLb=i=>{lb.classList.add('on');lb.setAttribute('aria-hidden','false');requestAnimationFrame(()=>lbTo(i,false));$('lbx').focus()};
+const closeLb=()=>{lb.classList.remove('on');lb.setAttribute('aria-hidden','true')};
+$('gal').addEventListener('click',e=>{const b=e.target.closest('button');if(b)openLb(+b.dataset.g)});
+document.querySelector('[data-lb]').addEventListener('click',()=>openLb(LB.length-1));
+tr.addEventListener('scroll',()=>{const i=cur();$('lbc').textContent=LB[i][1]+' · '+(i+1)+'/'+LB.length},{passive:true});
+$('lbx').addEventListener('click',closeLb);$('lbp').addEventListener('click',()=>lbTo(cur()-1,true));$('lbn').addEventListener('click',()=>lbTo(cur()+1,true));
+document.addEventListener('keydown',e=>{if(lb.classList.contains('on')){if(e.key==='Escape')closeLb();if(e.key==='ArrowRight')lbTo(cur()+1,true);if(e.key==='ArrowLeft')lbTo(cur()-1,true)}else if(e.key==='Escape')closeS()});
+
+/* instagram */
+$('copyig').addEventListener('click',async()=>{const s=$('copyig').querySelector('span');try{await navigator.clipboard.writeText('@pesqueiro_pais_e_filhos');s.textContent='Copiado! ✓'}catch(_){s.textContent='@pesqueiro_pais_e_filhos'}setTimeout(()=>s.textContent='@pesqueiro_pais_e_filhos',1800)});
+
+/* revelar ao rolar + aba ativa */
+const rvo=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');rvo.unobserve(e.target)}}),{rootMargin:'0px 0px -8% 0px'});
+document.querySelectorAll('.rv').forEach(x=>rvo.observe(x));
+const bar=[...$('bar').children];
+const nvo=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting)bar.forEach(a=>a.classList.toggle('on',a.getAttribute('href')==='#'+e.target.id))}),{rootMargin:'-45% 0px -50% 0px'});
+['inicio','cardapio','pesca','fotos','info'].forEach(id=>nvo.observe($(id)));
+}
+</script>
+</body>
+</html>
