@@ -49,14 +49,14 @@ body.mesa .so-bio,body:not(.mesa) .so-mesa{display:none!important}
 @keyframes up{from{transform:translateY(16px);opacity:0}}
 
 /* hero */
-.hero{position:relative;height:min(90svh,780px);overflow:hidden;color:#fff;isolation:isolate;cursor:pointer}
+.hero{position:relative;min-height:min(90svh,780px);display:flex;flex-direction:column;justify-content:flex-end;overflow:hidden;color:#fff;isolation:isolate;cursor:pointer}
 .slides,.slides>*{position:absolute;inset:0}
 .slides img{opacity:0;transition:opacity 1.2s;transform:scale(1.12)}
 .slides img.on{opacity:1;animation:kb 7s linear both}
 @keyframes kb{from{transform:scale(1.02) translate(0,0)}to{transform:scale(1.16) translate(-2%,-2%)}}
 .slides video{object-fit:cover;width:100%;height:100%}
 .hero:after{content:"";position:absolute;inset:0;z-index:1;background:linear-gradient(180deg,#0b120780 0%,#0b120700 28%,#0b1207b0 62%,var(--bg) 100%)}
-.hero .in{position:absolute;inset:auto 0 0;z-index:3;padding:0 20px 70px}
+.hero .in{position:relative;z-index:3;padding:84px 20px 70px;width:100%}
 .hero .lg{width:78px;height:78px;border-radius:50%;overflow:hidden;border:3px solid #fff;margin-bottom:14px;box-shadow:0 8px 24px #0007}
 .hero .lg img{object-position:50% 30%}
 .hero h1{font-size:clamp(40px,11.5vw,56px);text-shadow:0 2px 18px #000a}
@@ -212,6 +212,56 @@ h2 .w{display:inline-block;opacity:0;transform:translateY(.4em);transition:opaci
 h2.in .w{opacity:1;transform:none}
 :focus-visible{outline:3px solid var(--or2);outline-offset:2px}
 
+
+/* modo mesa / avaliação */
+body.mesa .hero{min-height:min(66svh,580px)}
+.hrow{display:flex;flex-wrap:wrap;align-items:center;gap:8px;margin-top:14px}.hrow .welcome{margin:0}
+.gbadge{display:inline-flex;align-items:center;gap:6px;background:#fff;color:#1b1b1b;border-radius:999px;padding:8px 13px;font-weight:900;font-size:14px;text-decoration:none}
+.gbadge .st{color:#f5b400;letter-spacing:1px}
+.acts{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;padding:0 18px;margin-top:-14px;position:relative;z-index:3}
+.acts a{color:var(--ink);display:grid;justify-items:center;gap:6px;text-decoration:none;text-align:center;background:var(--card);border:1px solid var(--line);border-radius:18px;padding:14px 6px;font-weight:900;font-size:13.5px;line-height:1.2;transition:transform .15s;box-shadow:0 10px 24px #0005}
+.acts a:active{transform:scale(.94)}.acts svg{width:30px;height:30px;color:var(--or2)}
+.acts a.rev{background:linear-gradient(160deg,#fff,#ffeccb);color:#1b1206;border:0}.acts a.rev svg{color:#f5b400;animation:twk 2.4s ease-in-out infinite}
+@keyframes twk{50%{transform:scale(1.18) rotate(12deg)}}
+.mcol{display:grid;gap:12px}
+.binfo{margin-top:12px;background:var(--card);border:1px solid var(--line);border-radius:22px;padding:18px;display:grid;gap:18px}
+.binfo .top{display:flex;flex-wrap:wrap;justify-content:space-between;gap:8px;align-items:center}
+.binfo .top h3{font-size:24px}
+.when{display:inline-flex;gap:6px;align-items:center;background:var(--or);color:#1b1206;font-weight:900;font-size:13.5px;padding:6px 12px;border-radius:999px}
+.ptab div{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:11px 0;border-bottom:1px dashed #ffffff24}
+.ptab div:last-child{border:0}
+.ptab span{font-weight:800}.ptab span small{display:block;color:var(--soft);font-size:13px;font-weight:600}
+.ptab b{font-size:21px;color:var(--or2);white-space:nowrap}
+.small-h{font-size:13.5px;font-weight:900;color:var(--soft);margin:0}
+.inc{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px}
+.inc span{font-size:14px;font-weight:700;padding:6px 11px;border-radius:999px;background:#3c5a2466;border:1px solid #58d36b40}
+.inc span:before{content:"✓ ";color:#58d36b}
+.inc.no span{background:#ffffff0d;border-color:var(--line);color:var(--soft)}.inc.no span:before{content:"+ ";color:var(--or2)}
+.howto{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;counter-reset:s}
+.howto div{background:var(--bg2);border-radius:14px;padding:12px 10px;font-size:13.5px;line-height:1.35;counter-increment:s}
+.howto div:before{content:counter(s);display:grid;place-items:center;width:26px;height:26px;border-radius:50%;background:var(--or);color:#1b1206;font-weight:900;margin-bottom:6px}
+.other{font-size:14px;color:var(--soft);margin:0}
+.rules{margin-top:12px;background:var(--card);border:1px solid var(--line);border-radius:18px;padding:16px}
+.rules ul{list-style:none;margin:10px 0 0;padding:0;display:grid;gap:9px}
+.rules li{display:grid;grid-template-columns:22px minmax(0,1fr);gap:6px;font-size:15px;line-height:1.4}
+.rules li:before{content:"✓";color:#58d36b;font-weight:900}
+.rev-card{margin-top:18px;border-radius:26px;padding:28px 20px;background:radial-gradient(120% 120% at 80% 0%,#fff3d6,#fff 60%);color:#1b1b1b;text-align:center;position:relative;overflow:hidden}
+.rev-card .big{font-family:"Alfa Slab One";font-size:68px;line-height:1}
+.stars{display:flex;justify-content:center;gap:6px;margin:10px 0 6px}
+.stars svg{width:40px;height:40px;color:#e4e4e4;transform:scale(.6);transition:color .4s,transform .5s cubic-bezier(.3,1.6,.5,1)}
+.rev-card.in .stars svg{color:#f5b400;transform:none}
+.rev-card p{color:#555;margin:0 0 16px}
+.btn.g{background:#1a73e8;color:#fff;font-size:17px;min-height:56px;padding:0 28px;box-shadow:0 10px 24px #1a73e855}
+.btn.g svg{color:#fff}
+.rev-card .sub{font-size:13px;color:#777;margin-top:12px}
+.spark{position:absolute;width:8px;height:8px;border-radius:50%;background:#f5b400;opacity:.0;animation:spk 3s ease-in-out infinite}
+@keyframes spk{0%,100%{opacity:0;transform:scale(.4)}50%{opacity:.8;transform:scale(1)}}
+.toast{position:fixed;left:50%;bottom:calc(84px + var(--safe));z-index:50;width:min(480px,calc(100% - 24px));transform:translate(-50%,160%);background:#fff;color:#1b1b1b;border-radius:18px;padding:12px 6px 12px 16px;display:flex;gap:10px;align-items:center;box-shadow:0 16px 40px #000a;transition:transform .5s cubic-bezier(.2,1.2,.4,1)}
+.toast{visibility:hidden;opacity:0}.toast.on{transform:translate(-50%,0);visibility:visible;opacity:1}
+.toast p{margin:0;font-size:14px;flex:1;line-height:1.35}.toast p b{display:block;font-size:15px}
+.toast a{background:#1a73e8;color:#fff;text-decoration:none;font-weight:900;border-radius:999px;padding:11px 14px;white-space:nowrap;font-size:14px}
+.toast button{border:0;background:none;font-size:22px;color:#888;width:40px;height:44px;cursor:pointer}
+.fab.star{background:#fff;color:#f5b400}.fab.star:before{border-color:#fff}
 @media(min-width:600px){.app{max-width:760px}.bar{width:min(760px,100%)}.fab{right:max(14px,calc(50% - 366px))}.flip{height:300px}.info{grid-template-columns:repeat(2,minmax(0,1fr))}.items{grid-template-columns:repeat(2,minmax(0,1fr))}.car button{flex-basis:46%}}
 @media(min-width:1000px){
  html{scroll-padding-top:84px}
@@ -222,8 +272,8 @@ h2.in .w{opacity:1;transform:none}
  .bar{top:0;bottom:auto;left:0;transform:none;width:100%;display:flex;justify-content:center;gap:6px;padding:12px 24px;border-top:0;border-bottom:1px solid var(--line);background:#101a0bd9}
  .bar a{display:flex;align-items:center;gap:8px;min-height:44px;padding:0 18px;font-size:15px;border-radius:999px}
  .bar a.on{background:#f07c2224}.bar svg{width:20px;height:20px}.bar a.on svg{transform:none}
- .hero{height:min(94vh,900px)}
- .hero .in{max-width:1200px;left:0;right:0;margin:0 auto;padding:0 40px 130px}
+ .hero{min-height:min(94vh,900px)}
+ .hero .in{max-width:1200px;margin:0 auto;padding:120px 40px 130px}
  .hero h1{font-size:88px;max-width:12ch}.hero .in p{font-size:21px;max-width:40ch}.hero .lg{width:104px;height:104px}
  .dots{top:88px;max-width:1120px;margin:0 auto}.wave{height:80px}.jump{width:70px}.hint{right:40px;bottom:110px}
  .stats{max-width:1120px;margin:-40px auto 0;gap:16px}.stats div{padding:24px}.stats b{font-size:44px}.stats span{font-size:15px}
@@ -245,10 +295,16 @@ h2.in .w{opacity:1;transform:none}
  .video{aspect-ratio:16/9;max-width:900px}
  .info{grid-template-columns:repeat(4,minmax(0,1fr));gap:16px}.info .ig{grid-column:1/-1;display:flex;align-items:center;justify-content:space-between;gap:20px;padding:28px 32px}.info .ig .btn{margin:0}
  body.mesa .info{grid-template-columns:repeat(3,minmax(0,1fr))}
+ body.mesa .hero{min-height:min(82vh,780px)}body.mesa .hero .in{padding-bottom:110px}body.mesa .binfo{max-width:920px}
+ .acts{max-width:900px;margin:-40px auto 0;gap:16px}.acts a{padding:26px 10px;font-size:16px}.acts svg{width:38px;height:38px}
+ .binfo{margin-top:12px;padding:26px}.rev-card{max-width:760px;margin:24px auto 0;padding:48px}.toast{bottom:28px}
+ .rules{padding:22px}
  footer{padding:40px}.fab{right:28px;bottom:28px;width:64px;height:64px}
  .sheet{align-items:center}.sheet .pn{width:min(560px,92vw);border-radius:24px;transform:translateY(30px) scale(.96);opacity:0;transition:transform .35s,opacity .35s}.sheet.on .pn{opacity:1;transform:none}.sheet .hd{height:280px}
  .lb figure{padding:70px 90px}
 }
+@media(max-width:380px){.hero h1{font-size:36px}.acts a{font-size:12.5px;padding:12px 4px}.howto{grid-template-columns:minmax(0,1fr)}.ptab b{font-size:18px}}
+@media(max-height:500px) and (orientation:landscape){.hero{min-height:100svh}}
 @media(prefers-reduced-motion:reduce){*,*:before,*:after{animation:none!important;transition:none!important}.rv,h2 .w{opacity:1;transform:none}.jump{display:none}}
 </style>
 </head>
@@ -266,6 +322,7 @@ h2.in .w{opacity:1;transform:none}
  <symbol id="pin" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2"><path d="M12 21s-7-6.2-7-11.5a7 7 0 0 1 14 0C19 14.8 12 21 12 21Z"/><circle cx="12" cy="9.5" r="2.5"/></g></symbol>
  <symbol id="home" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" d="M3 11 12 4l9 7v9a1 1 0 0 1-1 1h-5v-6H9v6H4a1 1 0 0 1-1-1Z"/></symbol>
  <symbol id="ig" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r=".6" fill="currentColor"/></g></symbol>
+ <symbol id="star" viewBox="0 0 24 24"><path fill="currentColor" d="m12 2.5 2.9 6.1 6.6.8-4.9 4.6 1.3 6.6L12 17.3l-5.9 3.3 1.3-6.6-4.9-4.6 6.6-.8Z"/></symbol>
  <symbol id="wa" viewBox="0 0 24 24"><path fill="currentColor" d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2Zm0 18.2a8.2 8.2 0 0 1-4.2-1.1l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2Zm4.5-6.1c-.2-.1-1.5-.7-1.7-.8-.2-.1-.4-.1-.6.1l-.8 1c-.1.2-.3.2-.5.1a6.7 6.7 0 0 1-3.3-2.9c-.2-.4.2-.4.7-1.2.1-.2 0-.3 0-.4l-.8-1.8c-.2-.5-.4-.4-.6-.4h-.5a1 1 0 0 0-.7.3 3 3 0 0 0-.9 2.2 5.2 5.2 0 0 0 1.1 2.7 11.8 11.8 0 0 0 4.5 4c1.7.7 2.3.8 3.2.6a2.7 2.7 0 0 0 1.8-1.3 2.2 2.2 0 0 0 .1-1.3c0-.1-.2-.2-.5-.3Z"/></symbol>
 </svg>
 
@@ -281,21 +338,27 @@ h2.in .w{opacity:1;transform:none}
  <div class="in">
   <div class="lg"><img src="logo.jpg" alt="Logo Pesqueiro Pais e Filhos"></div>
   <h1><small>Pirabeiraba · Joinville/SC</small><span id="h1w">Pesqueiro Pais e Filhos</span></h1>
-  <p class="so-mesa">Que bom ter você aqui! Explore o cardápio, conheça os lagos e aproveite o dia.</p>
+  <p class="so-mesa">Que bom ter você aqui! Preços do buffet, regras da pesca e tudo pra aproveitar o dia.</p>
   <p class="so-bio">Buffet no fogão a lenha, lagos cheios de peixe e natureza pra família toda. Vem passar o dia com a gente!</p>
-  <span class="welcome" id="wel"><i></i><span id="hoje">Aberto hoje até 18h</span></span>
+  <div class="hrow"><span class="welcome" id="wel"><i></i><span id="hoje">Aberto hoje até 18h</span></span><a class="gbadge" id="gbadge" target="_blank" rel="noopener"><span class="st">★</span><span id="gnota">4,6</span> no Google</a></div>
  </div>
  <span class="hint" aria-hidden="true">toque na água ↯</span>
  <svg class="wave" viewBox="0 0 600 52" preserveAspectRatio="none" aria-hidden="true"><path fill="#14200d" opacity=".5" d="M0 20c50-14 100-14 150 0s100 14 150 0 100-14 150 0 100 14 150 0 100-14 150 0v32H0Z"/><path fill="#14200d" d="M0 30c50-14 100-14 150 0s100 14 150 0 100-14 150 0 100 14 150 0 100-14 150 0v22H0Z"/></svg>
 </header>
 
-<div class="stats" id="stats">
+<nav class="acts so-mesa" aria-label="Atalhos">
+ <a href="#cardapio"><svg><use href="#plate"/></svg>Buffet e preços</a>
+ <a href="#pesca"><svg><use href="#rod"/></svg>Pesca e regras</a>
+ <a href="#avaliar" class="rev"><svg><use href="#star"/></svg>Avalie a gente</a>
+</nav>
+
+<div class="stats so-bio" id="stats">
  <div><b data-n="18">0</b><span>espécies nos lagos</span></div>
  <div><b data-n="36">0</b><span>mil seguidores no Instagram</span></div>
- <div><b data-n="5">0</b><span>dias abertos por semana</span></div>
+ <div><b data-n="4" id="ndias">0</b><span>dias abertos por semana</span></div>
 </div>
 
-<section class="sec">
+<section class="sec so-bio">
  <span class="kick rv">Seu dia no pesqueiro</span>
  <h2 class="rv">Venha pro almoço, fique o dia inteiro</h2>
  <div class="day" id="day"></div>
@@ -303,7 +366,7 @@ h2.in .w{opacity:1;transform:none}
 
 <section class="sec" id="cardapio">
  <span class="kick">Cardápio</span>
- <h2 class="rv">Feito no fogão a lenha</h2>
+ <h2 class="rv so-bio">Feito no fogão a lenha</h2><h2 class="rv so-mesa">Buffet e cardápio</h2>
  <div class="tabs" role="tablist" id="tabs"></div>
  <div id="menu"></div>
  <p class="note" id="exnote">Valores de exemplo — trocar pelos valores reais antes de divulgar.</p>
@@ -314,7 +377,7 @@ h2.in .w{opacity:1;transform:none}
  <h2 class="rv">Aqui a ação é bruta</h2>
  <p class="lead rv">Toque nos cartões para ver como funciona cada modalidade — e no lago para conhecer quem mora aqui.</p>
  <div class="pgrid">
-  <div class="mods" id="mods"></div>
+  <div><div class="mods" id="mods"></div><div class="rules rv" id="rules"></div></div>
   <div>
    <div class="pond rv" id="pond"><div class="lbl"><span>Toque num peixe</span><span id="pcount"></span></div></div>
    <div class="fishcard" id="fcard"><svg viewBox="0 0 34 20" style="color:#ffa34d"><use href="#fish"/></svg><span><b>18 espécies</b><span>Toque nos peixes ou nos nomes abaixo para conhecer cada um.</span></span></div>
@@ -323,7 +386,7 @@ h2.in .w{opacity:1;transform:none}
  </div>
 </section>
 
-<section class="sec" id="fotos">
+<section class="sec so-bio" id="fotos">
  <span class="kick">Fotos e vídeo</span>
  <h2 class="rv">Conheça o espaço</h2>
  <p class="lead rv">Natureza aos pés da serra: lagos, mata e lugar pra família toda. Arraste para o lado e toque para ampliar.</p>
@@ -332,11 +395,21 @@ h2.in .w{opacity:1;transform:none}
  <div class="car-ctl"><button id="cp" aria-label="Foto anterior">‹</button><span class="pg" id="cpg"></span><button id="cn" aria-label="Próxima foto">›</button></div>
 </section>
 
+<section class="sec" id="avaliar">
+ <span class="kick">Avaliação</span>
+ <h2 class="rv">Gostou do dia? Conta pra gente!</h2>
+ <p class="lead rv">Sua avaliação no Google ajuda outras famílias a conhecerem o pesqueiro e ajuda a gente a melhorar. Leva menos de um minuto.</p>
+ <div class="rev-card rv" id="revcard"><i class="spark" style="left:12%;top:18%"></i><i class="spark" style="right:14%;top:26%;animation-delay:1s"></i><i class="spark" style="left:22%;bottom:20%;animation-delay:2s"></i>
+  <div class="big" id="gnota2">4,6</div><div class="stars" id="stars"></div><p><b id="gtotal">879</b> avaliações no Google</p>
+  <a class="btn g" id="revbtn" target="_blank" rel="noopener"><svg><use href="#star"/></svg>Avaliar no Google</a>
+  <div class="sub">Abre direto a tela de avaliação do Google.</div></div>
+</section>
+
 <section class="sec" id="info">
  <span class="kick">Informações</span>
  <h2 class="rv so-mesa">Volte sempre!</h2><h2 class="rv so-bio">Como chegar</h2>
  <div class="info">
-  <div class="box rv"><h3>Horário</h3><p style="margin:0">Quinta a segunda, das 8h às 18h</p><div class="week" id="week"></div></div>
+  <div class="box rv"><h3>Horário</h3><p style="margin:0" id="horario"></p><div class="week" id="week"></div></div>
   <div class="box rv"><h3>Endereço</h3><p style="margin:0">Estrada do Pico, nº 3034 (poste 48)<br>Pirabeiraba · Joinville/SC</p>
    <a class="btn gh" href="https://maps.app.goo.gl/3M52Fd4Ceh917xqc7" target="_blank" rel="noopener"><svg><use href="#pin"/></svg>Ver no mapa</a></div>
   <div class="box rv"><h3>Eventos</h3><p style="margin:0" class="lead">Aniversários, encontros de família, empresas e grupos de pesca.<span class="so-mesa"> Peça informações no caixa.</span></p><a class="btn wa so-bio" data-wa="Olá! Vi o catálogo e quero um orçamento para um evento no pesqueiro." href="#"><svg><use href="#wa"/></svg>Pedir orçamento</a></div>
@@ -349,11 +422,13 @@ h2.in .w{opacity:1;transform:none}
 </div>
 
 <a class="fab so-bio" data-wa="Olá! Vi o catálogo do pesqueiro e gostaria de mais informações." href="#" aria-label="Falar no WhatsApp"><svg><use href="#wa"/></svg></a>
+<div class="toast so-mesa" id="toast" role="status"><p><b>Gostando do dia?</b>Avalie a gente no Google — leva 1 minuto.</p><a id="toastgo" target="_blank" rel="noopener">Avaliar</a><button id="toastx" aria-label="Fechar">×</button></div>
 <nav class="bar" aria-label="Navegação" id="bar">
  <a href="#inicio" class="on"><svg><use href="#home"/></svg>Início</a>
  <a href="#cardapio"><svg><use href="#plate"/></svg>Cardápio</a>
  <a href="#pesca"><svg><use href="#rod"/></svg>Pesca</a>
- <a href="#fotos"><svg><use href="#pic"/></svg>Fotos</a>
+ <a href="#fotos" class="so-bio"><svg><use href="#pic"/></svg>Fotos</a>
+ <a href="#avaliar" class="so-mesa"><svg><use href="#star"/></svg>Avaliar</a>
  <a href="#info"><svg><use href="#pin"/></svg>Info</a>
 </nav>
 
@@ -366,22 +441,30 @@ h2.in .w{opacity:1;transform:none}
 const CONFIG={
  exemplo:true, // mude para false quando os valores forem os reais (o aviso some)
  video:'',     // ex.: 'video/apresentacao.mp4' — se vazio, a abertura usa as fotos
+ dias:[4,5,6,0],  // dias abertos: 0=domingo, 1=segunda ... 6=sábado
+ horario:'Quinta a domingo, das 8h às 18h',
+ google:{nota:'4,6',total:'879',
+  avaliar:'https://search.google.com/local/writereview?placeid=ChIJTR0XJ4un3pQR-KxuisGsliw',
+  perfil:'https://www.google.com/maps/place/?q=place_id:ChIJTR0XJ4un3pQR-KxuisGsliw'},
+ buffet:{
+  quando:'Domingos',hora:'das 11h30 às 15h',
+  precos:[['Adulto','Buffet livre','69,90'],['Criança','De 5 a 10 anos','34,90'],['Até 4 anos','Acompanhada de um adulto','Cortesia']],
+  inclui:['Pratos quentes','Peixes','Costela','Saladas','Acompanhamentos'],
+  aParte:['Bebidas','Porções','Sobremesa'],
+  passos:['Sirva-se à vontade no buffet','Repita quantas vezes quiser','Bebidas e porções você pede à parte'],
+  outrosDias:'De quinta a sábado servimos porções e bebidas.'},
+ regras:['Pesca esportiva: todo peixe volta para o lago','Use anzol sem farpa e manuseie o peixe com as mãos molhadas','No pesque e pague, o peixe é pesado e pago no balcão','Crianças sempre acompanhadas de um adulto na beira do lago','Dúvidas? Fale com a equipe no balcão'],
  cardapio:{
-  'Buffet':{destaque:{img:'buffet-fogao',badge:'Sábados e domingos',t:'Buffet livre',d:'Pratos quentes no fogão a lenha, costela, peixes fresquinhos, saladas e acompanhamentos. Coma à vontade.'},
-   itens:[
-    {t:'Buffet livre — adulto',d:'Sábados e domingos',p:'69,90',img:'buffet-pratos'},
-    {t:'Buffet livre — criança',d:'De 5 a 10 anos',p:'34,90',icon:'kid'},
-    {t:'Crianças até 4 anos',d:'Acompanhadas de um adulto',p:'Cortesia',icon:'kid'}]},
-  'Porções':{itens:[
+  'Porções':[
     {t:'Tilápia frita',d:'Porção para 2 a 3 pessoas',p:'59,90',icon:'fish'},
     {t:'Isca de peixe',d:'Com molho da casa',p:'54,90',icon:'fish'},
     {t:'Batata frita',d:'Porção grande',p:'32,90',icon:'fries'},
-    {t:'Mandioca frita',d:'Porção grande',p:'29,90',icon:'fries'}]},
-  'Bebidas':{itens:[
+    {t:'Mandioca frita',d:'Porção grande',p:'29,90',icon:'fries'}],
+  'Bebidas':[
     {t:'Chopp',d:'Bem gelado, 300 ml',p:'12,90',icon:'glass'},
     {t:'Refrigerante lata',d:'350 ml',p:'7,00',icon:'drink'},
     {t:'Suco natural',d:'Copo 500 ml',p:'10,00',icon:'drink'},
-    {t:'Água mineral',d:'Com ou sem gás',p:'5,00',icon:'drink'}]}
+    {t:'Água mineral',d:'Com ou sem gás',p:'5,00',icon:'drink'}]
  },
  pesca:[
   {img:'arremesso',t:'Pesca esportiva',tag:'Pesque e solte',d:'Tambaquis, tambacus gigantes e muitos peixes de couro. O peixe volta pro lago.',p:'Diária: R$ 60,00'},
@@ -398,6 +481,19 @@ const MESA=location.hash==='#mesa';document.body.classList.toggle('mesa',MESA);
 const PHONE='5547991289400';
 document.querySelectorAll('[data-wa]').forEach(a=>{a.href='https://wa.me/'+PHONE+'?text='+encodeURIComponent(a.dataset.wa);a.target='_blank';a.rel='noopener'});
 if(!CONFIG.exemplo)$('exnote').remove();
+$('horario').textContent=CONFIG.horario;$('ndias').dataset.n=CONFIG.dias.length;
+/* google */
+const G=CONFIG.google;
+$('gnota').textContent=G.nota;$('gnota2').textContent=G.nota;$('gtotal').textContent=G.total;
+$('gbadge').href=MESA?G.avaliar:G.perfil;
+['revbtn','toastgo'].forEach(id=>$(id).href=G.avaliar);
+$('stars').innerHTML=[0,1,2,3,4].map(i=>'<svg style="transition-delay:'+(.3+i*.15)+'s"><use href="#star"/></svg>').join('');
+$('rules').innerHTML='<h3 style="font-size:18px">Regras da pesca</h3><ul>'+CONFIG.regras.map(r=>'<li>'+esc(r)+'</li>').join('')+'</ul>';
+if(MESA){let off=false;try{off=sessionStorage.getItem('revtoast')==='1'}catch(_){}
+ const t=$('toast'),hide=()=>{t.classList.remove('on');try{sessionStorage.setItem('revtoast','1')}catch(_){}};
+ if(!off)setTimeout(()=>t.classList.add('on'),180000);
+ $('toastx').addEventListener('click',hide);$('toastgo').addEventListener('click',hide);}
+
 setTimeout(()=>$('splash').classList.add('out'),reduce?50:1400);
 
 /* título palavra por palavra */
@@ -423,8 +519,8 @@ hero.addEventListener('click',e=>{
 });
 
 /* aberto hoje */
-const now=new Date(),dow=now.getDay(),OPEN=[1,4,5,6,0],open=OPEN.includes(dow),h=now.getHours();
-$('hoje').textContent=open?(h<8?'Abrimos hoje às 8h':h<18?'Aberto agora · até 18h':'Encerrado por hoje'):'Hoje fechado · abrimos de quinta a segunda';
+const now=new Date(),dow=now.getDay(),OPEN=CONFIG.dias,open=OPEN.includes(dow),h=now.getHours();
+$('hoje').textContent=open?(h<8?'Abrimos hoje às 8h':h<18?'Aberto agora · até 18h':'Encerrado por hoje'):'Hoje fechado · '+CONFIG.horario.toLowerCase();
 $('wel').classList.toggle('off',!(open&&h>=8&&h<18));
 $('week').innerHTML=[['Seg',1],['Ter',2],['Qua',3],['Qui',4],['Sex',5],['Sáb',6],['Dom',0]].map(([n,d])=>'<span class="'+(OPEN.includes(d)?'op ':'')+(d===dow?'td':'')+'">'+n+'</span>').join('');
 
@@ -439,14 +535,24 @@ $('day').innerHTML=DAY.map(([a,b,c,img],i)=>'<button class="step rv'+(i===1?' op
 $('day').addEventListener('click',e=>{const s=e.target.closest('.step');if(!s)return;const was=s.classList.contains('open');[...$('day').children].forEach(x=>x.classList.toggle('open',x===s&&!was))});
 
 /* cardápio */
-const cats=Object.keys(CONFIG.cardapio);let ALL=[];
+const cats=['Buffet',...Object.keys(CONFIG.cardapio)];let ALL=[];
 $('tabs').innerHTML=cats.map((c,i)=>'<button role="tab" class="'+(i?'':'on')+'" data-c="'+esc(c)+'">'+esc(c)+'</button>').join('');
 const ic=n=>'<svg><use href="#'+esc(n||'plate')+'"/></svg>';
+const B=CONFIG.buffet;
+const buffetHTML=()=>{
+ let h='';
+ if(!MESA)h+='<div class="buffet"><img src="buffet-fogao.jpg" alt="Buffet no fogão a lenha"><div class="steam" aria-hidden="true"><i></i><i></i><i></i></div><div class="t"><span class="badge">Fogão a lenha</span><h3 style="font-size:26px">Buffet livre</h3><p style="margin-bottom:0;color:#e3e9d9">Costela, peixes fresquinhos, pratos quentes e saladas. Coma à vontade.</p></div></div>';
+ h+='<div class="mcol"><div class="binfo"><div class="top"><h3>Buffet livre</h3><span class="when">'+esc(B.quando)+' · '+esc(B.hora)+'</span></div>'
+  +'<div class="ptab">'+B.precos.map(([a,b,c])=>'<div><span>'+esc(a)+'<small>'+esc(b)+'</small></span><b>'+esc(brl(c))+'</b></div>').join('')+'</div>'
+  +'<div><p class="small-h">Está incluso</p><div class="inc">'+B.inclui.map(x=>'<span>'+esc(x)+'</span>').join('')+'</div></div>'
+  +'<div><p class="small-h">Cobrado à parte</p><div class="inc no">'+B.aParte.map(x=>'<span>'+esc(x)+'</span>').join('')+'</div></div>'
+  +'<div><p class="small-h" style="margin-bottom:8px">Como funciona</p><div class="howto">'+B.passos.map(x=>'<div>'+esc(x)+'</div>').join('')+'</div></div>'
+  +'<p class="other">'+esc(B.outrosDias)+'</p></div></div>';
+ return h;};
 const showCat=c=>{
- const cat=CONFIG.cardapio[c];ALL=cat.itens;let h='';
- if(cat.destaque){const d=cat.destaque;h+='<div class="buffet"><img src="'+esc(d.img)+'.jpg" alt="Buffet no fogão a lenha"><div class="steam" aria-hidden="true"><i></i><i></i><i></i></div><div class="t"><span class="badge">'+esc(d.badge)+'</span><h3 style="font-size:26px">'+esc(d.t)+'</h3><p style="margin-bottom:0;color:#e3e9d9">'+esc(d.d)+'</p></div></div>';}
- h+='<div class="items">'+cat.itens.map((it,i)=>'<button class="item" data-i="'+i+'" style="animation-delay:'+(i*80)+'ms"><span class="ic">'+(it.img?'<img src="'+esc(it.img)+'.jpg" alt="" style="border-radius:13px">':ic(it.icon))+'</span><span><b>'+esc(it.t)+'</b><small>'+esc(it.d)+'</small></span><span class="price">'+esc(brl(it.p))+'</span></button>').join('')+'</div>';
- $('menu').innerHTML=h;
+ if(c==='Buffet'){ALL=[];$('menu').innerHTML=buffetHTML();return}
+ const it0=CONFIG.cardapio[c];ALL=it0;
+ $('menu').innerHTML='<div class="items">'+it0.map((it,i)=>'<button class="item" data-i="'+i+'" style="animation-delay:'+(i*80)+'ms"><span class="ic">'+(it.img?'<img src="'+esc(it.img)+'.jpg" alt="" style="border-radius:13px">':ic(it.icon))+'</span><span><b>'+esc(it.t)+'</b><small>'+esc(it.d)+'</small></span><span class="price">'+esc(brl(it.p))+'</span></button>').join('')+'</div>';
 };
 $('tabs').addEventListener('click',e=>{const b=e.target.closest('button');if(!b)return;[...$('tabs').children].forEach(x=>x.classList.toggle('on',x===b));showCat(b.dataset.c);b.scrollIntoView({inline:'center',block:'nearest',behavior:'smooth'})});
 showCat(cats[0]);
@@ -538,7 +644,7 @@ const prog=()=>{const d=document.documentElement,p=d.scrollTop/Math.max(1,d.scro
 addEventListener('scroll',()=>requestAnimationFrame(prog),{passive:true});prog();
 const bar=[...$('bar').children];
 const nvo=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting)bar.forEach(a=>a.classList.toggle('on',a.getAttribute('href')==='#'+e.target.id))}),{rootMargin:'-45% 0px -50% 0px'});
-['inicio','cardapio','pesca','fotos','info'].forEach(id=>nvo.observe($(id)));
+['inicio','cardapio','pesca','fotos','avaliar','info'].forEach(id=>nvo.observe($(id)));
 }
 </script>
 </body>
