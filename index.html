@@ -530,7 +530,7 @@ const so=new IntersectionObserver(es=>es.forEach(e=>{if(!e.isIntersecting)return
 so.observe($('stats'));
 
 /* dia */
-const DAY=[['Manhã','Lago e vara na mão','O pesqueiro abre às 8h. Escolha seu lugar na beira d’água.','arremesso'],['Almoço','Buffet no fogão a lenha','Costela, peixes e pratos variados — com chopp gelado.','buffet-fogao'],['Tarde','Família e natureza','Conversa boa, crianças brincando e mais uma pescaria.','lago-casa'],['18h','Até a próxima!','Leve sua tilápia do pesque e pague pra casa.','lago-palmeiras']];
+const DAY=[['Manhã','Pescaria logo cedo','O pesqueiro abre às 8h. Escolha seu lugar na beira d’água.','arremesso'],['Almoço','Buffet no fogão a lenha','Costela, peixes e pratos variados — com chopp gelado.','buffet-fogao'],['Tarde','Família e natureza','Conversa boa, crianças brincando e mais uma pescaria.','lago-casa'],['18h','Até a próxima!','Leve sua tilápia do pesque e pague pra casa.','lago-palmeiras']];
 $('day').innerHTML=DAY.map(([a,b,c,img],i)=>'<button class="step rv'+(i===1?' open':'')+'" style="transition-delay:'+(i*90)+'ms"><span class="d">'+(i+1)+'</span><span><b>'+a+' · '+b+'</b><span>'+c+'</span><span class="more"><img src="'+img+'.jpg" alt="" loading="lazy"></span></span></button>').join('');
 $('day').addEventListener('click',e=>{const s=e.target.closest('.step');if(!s)return;const was=s.classList.contains('open');[...$('day').children].forEach(x=>x.classList.toggle('open',x===s&&!was))});
 
